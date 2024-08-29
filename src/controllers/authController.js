@@ -94,6 +94,7 @@ exports.update = async (req, res) => {
 
 // Get all Users
 exports.getAllUsers = async (req, res) => {
+  console.log("User");
   try {
       const users = await User.find().select('-password'); // Exclude passwords
       res.json(users);
