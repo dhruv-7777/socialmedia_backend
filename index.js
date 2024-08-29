@@ -16,9 +16,7 @@ mongoose.connect(process.env.MONGO_URI, {
   .catch((err) => console.log('Error connecting to MongoDB:', err));
 
 // Routes
-app.use('/', (req, res) => {
-  res.json({message: "Hello from Index.js"})
-});
+
 app.use('/api/auth', require('./src/routes/auth'));
 
 // Start server
