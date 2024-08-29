@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
+const User = require('./src/models/User');
 
 const app = express();
 
@@ -16,7 +17,16 @@ mongoose.connect(process.env.MONGO_URI, {
   .catch((err) => console.log('Error connecting to MongoDB:', err));
 
 // Routes
+app.use('/',async (res,req) => {
+    try {
+        const users = await User.find().select('-password'); // Exclude passwords
+        res.json(users);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+    }
 
+})
 app.use('/api/auth', require('./src/routes/auth'));
 
 // Start server
