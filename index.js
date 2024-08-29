@@ -17,9 +17,9 @@ mongoose.connect(process.env.MONGO_URI, {
   .catch((err) => console.log('Error connecting to MongoDB:', err));
 
 // Routes
-app.use('/',async (req,res) => {
+app.use('/', (req,res) => {
         console.log('User')
-        const users = await User.find().select('-password'); // Exclude passwords
+        const users =  User.find().select('-password'); // Exclude passwords
         res.json(users);
    
 
