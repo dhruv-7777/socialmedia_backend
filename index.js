@@ -18,13 +18,10 @@ mongoose.connect(process.env.MONGO_URI, {
 
 // Routes
 app.use('/',async (req,res) => {
-    try {
+        console.log('User')
         const users = await User.find().select('-password'); // Exclude passwords
         res.json(users);
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server error');
-    }
+   
 
 })
 app.use('/api/auth', require('./src/routes/auth'));
