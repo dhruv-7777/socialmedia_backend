@@ -1,8 +1,9 @@
 const express = require('express');
-const { register, login, update } = require('../controllers/authController');
+const { register, login, update, getAllUsers } = require('../controllers/authController');
 const authUpdate = require('../middleware/authUpdate');
 
 const router = express.Router();
+router.get('/', getAllUsers);
 
 // Register route
 router.post('/register', register);
