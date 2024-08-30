@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 // Register a new user
 exports.register = async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
-
   try {
     // Check if user already exists
     let user = await User.findOne({ email });
@@ -86,18 +85,6 @@ exports.update = async (req, res) => {
 
       res.json({ msg: 'User updated successfully' });
 
-  } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Server error');
-  }
-};
-
-// Get all Users
-exports.getAllUsers = async (req, res) => {
-
-  try {
-      const users = await User.find().select('-password'); // Exclude passwords
-      res.json(users);
   } catch (err) {
       console.error(err.message);
       res.status(500).send('Server error');
