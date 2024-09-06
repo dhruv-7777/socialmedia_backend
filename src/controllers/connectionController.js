@@ -3,13 +3,13 @@ const Connection = require('../models/Connection');
 
 // Create a new connection (add following/followers)
 exports.addConnection = async (req, res) => {
-  const { following, followers } = req.body;
+  const { sender, reciever } = req.body;
 
   try {
     // Create a new connection
     const connection = new Connection({
-      following, 
-      followers
+        sender, 
+        reciever
     });
 
     await connection.save();

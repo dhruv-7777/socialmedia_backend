@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const ConnectionSchema = new mongoose.Schema({
-    following: { type: mongoose.Schema.Types.ObjectId,  },
-    followers: { type: mongoose.Schema.Types.ObjectId,  },
+    sender: { type: mongoose.Schema.Types.ObjectId,  },
+    reciever: { type: mongoose.Schema.Types.ObjectId,  },
     status: { type: String, enum: ['accepted', 'pending'], default: 'pending' }
 });
 
