@@ -27,6 +27,7 @@ exports.create = async (req, res) => {
 };
 
 exports.getAllJobs = async (req, res) => {
+
   try {
       const jobs = await Job.find() // Exclude passwords
       res.json(jobs);
