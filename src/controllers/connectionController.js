@@ -20,8 +20,8 @@ exports.addConnection = async (req, res) => {
 // Get all the connection
 exports.getConnections = async (req, res) => {
   try {
-    // console.log("Testing");
-    const connections = await Connection.find()
+    const { userId } = req.body;
+    const connections = await Connection.find({ sender: userId })
     const receiverIds = connections.map(connection => connection.reciever);
     const users = await User.find({ _id: { $in: receiverIds } })
       .select('_id firstName lastName');

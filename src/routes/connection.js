@@ -2,7 +2,7 @@ const express = require('express');
 const { addConnection, getConnections, acceptConnection, rejectConnection } = require('../controllers/connectionController');
 
 const connection = express.Router();
-connection.get('/', getConnections);
+connection.post('/', getConnections);
 
 // Register route
 connection.post('/create', addConnection);
