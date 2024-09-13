@@ -1,4 +1,5 @@
 const Connection = require('../models/Connection');
+const User = require('../models/User');
 
 // Create a new connection
 exports.addConnection = async (req, res) => {
@@ -21,7 +22,10 @@ exports.getConnections = async (req, res) => {
   try {
     // console.log("Testing");
     const connections = await Connection.find()
-    res.json(connections);
+    const receiverIds = connections.map(connection => connection.reciever);
+    const users = await User.find({ _id: { $in: receiverIds } })
+      .select('_id firstName lastName');
+    res.json(users);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
@@ -68,6 +72,21 @@ exports.rejectConnection = async (req, res) => {
     user.preferences = preferences || user.preferences;
     await user.save();
     res.json({ msg: 'Request has been accepted' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+};
+
+exports.getRequsteduser = async (req, res) => {
+  try {
+    const { userIds } = req.body; 
+
+    // Find users whose IDs are in the userIds array
+    const users = await User.find({ _id: { $in: userIds } })
+      .select('_id firstName lastName'); // Exclude passwords
+
+    res.json(users);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
