@@ -19,6 +19,7 @@ exports.addConnection = async (req, res) => {
 // Get all the connection
 exports.getConnections = async (req, res) => {
   try {
+    console.log("Testing");
     const connections = await Connection.find()
     res.json(connections);
   } catch (err) {
